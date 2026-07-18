@@ -76,6 +76,7 @@ order-portal/
 ├── seed.py                     # Creates the initial admin user (interactive)
 ├── requirements.txt            # Python dependencies (pinned versions)
 ├── .gitignore                  # Git ignore rules
+├── .env.example                # Environment variable template
 ├── README.md                   # This file
 │
 └── app/
@@ -196,14 +197,11 @@ pip install -r requirements.txt
 
 ### 4. Configure the application
 
-Edit `app/config.py` and set your MS SQL Server connection details:
+Set your MS SQL Server connection details via environment variables (copy `.env.example` to `.env` and fill in the values):
 
-```python
-MSSQL_SERVER = 'your-server-address'
-MSSQL_DATABASE = 'your-database-name'
-MSSQL_USERNAME = 'your-sql-login'
-MSSQL_PASSWORD = 'your-sql-password'
-MSSQL_PORT = 1433
+```bash
+cp .env.example .env   # Linux / macOS
+copy .env.example .env  # Windows
 ```
 
 For local development over HTTP, set:
@@ -211,6 +209,8 @@ For local development over HTTP, set:
 ```python
 SESSION_COOKIE_SECURE = False
 ```
+
+in `app/config.py`.
 
 ### 5. Initialize the database
 
@@ -297,11 +297,11 @@ All configuration is in `app/config.py`:
 |---------|---------|-------------|
 | `SECRET_KEY` | Auto-generated | Session signing key. Set via `SECRET_KEY` env var in production |
 | `SQLALCHEMY_DATABASE_URI` | `sqlite:///app.db` | SQLite path for user accounts |
-| `MSSQL_SERVER` | `localhost` | MS SQL Server hostname or IP |
-| `MSSQL_DATABASE` | `TestDB` | SQL Server database name |
-| `MSSQL_USERNAME` | `sa` | SQL Server login |
-| `MSSQL_PASSWORD` | `Password@123` | SQL Server password |
-| `MSSQL_PORT` | `1433` | SQL Server port |
+| `MSSQL_SERVER` | `localhost` | MS SQL Server hostname or IP (env: `MSSQL_SERVER`) |
+| `MSSQL_DATABASE` | `TestDB` | SQL Server database name (env: `MSSQL_DATABASE`) |
+| `MSSQL_USERNAME` | `sa` | SQL Server login (env: `MSSQL_USERNAME`) |
+| `MSSQL_PASSWORD` | *(empty)* | SQL Server password (env: `MSSQL_PASSWORD`) |
+| `MSSQL_PORT` | `1433` | SQL Server port (env: `MSSQL_PORT`) |
 | `SESSION_COOKIE_HTTPONLY` | `True` | Prevents JavaScript access to session cookie |
 | `SESSION_COOKIE_SAMESITE` | `Lax` | CSRF protection for cookies |
 | `SESSION_COOKIE_SECURE` | `True` | Cookies only sent over HTTPS. Set `False` for local HTTP dev |

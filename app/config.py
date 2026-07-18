@@ -18,11 +18,12 @@ class Config:
 
     # ----- MS SQL SERVER CONNECTION -----
     # The user MUST fill these in before running the app.
-    MSSQL_SERVER = 'localhost'  # e.g., '192.168.1.100' or 'myserver.database.windows.net'
-    MSSQL_DATABASE = 'TestDB'  # e.g., 'ProductionDB'
-    MSSQL_USERNAME = 'sa'  # SQL Server login username
-    MSSQL_PASSWORD = 'Password@123'  # SQL Server login password
-    MSSQL_PORT = 1433  # Default SQL Server port
+    # Set these via environment variables (see .env.example).
+    MSSQL_SERVER = os.environ.get('MSSQL_SERVER', 'localhost')
+    MSSQL_DATABASE = os.environ.get('MSSQL_DATABASE', 'TestDB')
+    MSSQL_USERNAME = os.environ.get('MSSQL_USERNAME', 'sa')
+    MSSQL_PASSWORD = os.environ.get('MSSQL_PASSWORD', '')
+    MSSQL_PORT = int(os.environ.get('MSSQL_PORT', 1433))
 
     # Session security flags
     SESSION_COOKIE_HTTPONLY = True
