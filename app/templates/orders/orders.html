@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Order Portal - Your Orders{% endblock %}
+
+{% block content %}
+<div class="orders-container">
+    <div class="orders-header">
+        <h1 class="page-heading">Your Orders</h1>
+        <p class="page-subtitle">Customer: <strong>{{ current_user.username }}</strong></p>
+    </div>
+
+    <div class="orders-actions">
+        <button id="get-orders-btn" class="btn btn-primary btn-large">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Get Orders
+        </button>
+    </div>
+
+    <div id="loading-spinner" class="loading-container" style="display:none;">
+        <div class="spinner"></div>
+        <p class="loading-text">Fetching your orders...</p>
+    </div>
+
+    <div id="error-message" class="error-card" style="display:none;">
+        <div class="error-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+        </div>
+        <div>
+            <p id="error-text" class="error-text"></p>
+        </div>
+    </div>
+
+    <div id="orders-table-container" class="glass-card orders-table-card" style="display:none;">
+        <h2 class="card-heading">Results</h2>
+        <p class="results-info" id="results-info"></p>
+        <div class="table-wrapper" id="table-wrapper">
+            <!-- Dynamic table inserted by JavaScript -->
+        </div>
+    </div>
+</div>
+{% endblock %}
