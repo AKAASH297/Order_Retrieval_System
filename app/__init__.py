@@ -5,6 +5,7 @@ from flask_talisman import Talisman
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_migrate import Migrate
+from flask_wtf import CSRFProtect
 
 from app.config import Config
 from app.models import db, User
@@ -13,6 +14,7 @@ login_manager = LoginManager()
 talisman = Talisman()
 limiter = Limiter(key_func=get_remote_address)
 migrate = Migrate()
+csrf = CSRFProtect()
 
 
 def create_app():
@@ -45,6 +47,10 @@ def create_app():
 
     # Rate limiting
     limiter.init_app(app)
+
+    # CSRF protection (registers the csrf_token() template global used in
+    # base.html and dashboard.html for the logout/delete buttons)
+    csrf.init_app(app)
 
     # Database migrations
     migrate.init_app(app, db)
